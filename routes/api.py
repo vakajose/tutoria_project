@@ -1,17 +1,35 @@
 from flask import Blueprint, request, jsonify
-#from models.model import generate_recommendations
-#from app import db
-from firebase_admin import credentials, firestore
+from service import odoo_service,firestore_service
+from utils import utils,models
 
 api_blueprint = Blueprint('api', __name__)
 
 #firebase api AIzaSyBVQTcUPcUg1128L_BbeVDsyhsYiLpxsVs
 
+
+@api_blueprint.route('/init_recomendaciones/<int:id_estudiante>', methods=['GET'])
+def iniciar_recomendaciones(id_estudiante: int):
+    #consultar a odoo la informacion del estudiante
+    students = odoo_service.get_student_from_odoo(id_estudiante)
+    grouped = utils.convertir_estructura(students)
+    
+    #guardar estudiantes en firebase
+    firestore_service.save_students(grouped,'students')
+
+
+    return jsonify(grouped)
+   
+
+#     # Obtener recomendaciones desde Firebase Firestore
+#     recomendaciones_ref = db.collection('recomendaciones').where('id_estudiante', '==', id_estudiante)
+#     recomendaciones = [doc.to_dict() for doc in recomendaciones_ref.stream()]
+#     return jsonify({'recomendaciones': recomendaciones})
+
 @api_blueprint.route('/evaluaciones', methods=['POST'])
 def recibir_evaluacion():
     data = request.get_json()
-#     id_estudiante = data.get('id_estudiante')
-#     resultados = data.get('resultados')
+    alumno_id = data.get('alumno_id')
+    resultados = data.get('resultados')
 
 #     # Almacenar en Firebase Firestore
 #     evaluacion_ref = db.collection('evaluaciones').document()
@@ -32,13 +50,19 @@ def recibir_evaluacion():
 
 #     return jsonify({'status': 'success', 'recomendaciones': recomendaciones})
 
-@api_blueprint.route('/init_recomendaciones/<int:id_estudiante>', methods=['GET'])
-def iniciar_recomendaciones(id_estudiante):
-    mensaje = f'hola mundo'
-#     # Obtener recomendaciones desde Firebase Firestore
-#     recomendaciones_ref = db.collection('recomendaciones').where('id_estudiante', '==', id_estudiante)
-#     recomendaciones = [doc.to_dict() for doc in recomendaciones_ref.stream()]
-#     return jsonify({'recomendaciones': recomendaciones})
+
+
+@api_blueprint.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    ci = data.get('ci')
+    apellido = data.get('apellido')
+    result = odoo_service.login(ci=ci,ap=apellido)
+    print(len(result))
+    if len(result)<=0:
+        return jsonify({'status': 'error', 'message': 'Resource not found'}), 404
+    else:
+        return jsonify({'status': 'success', 'alumno': result}) , 200
 
 
 @api_blueprint.route('/test/<test>', methods=['GET'])

@@ -1,0 +1,41 @@
+{
+    "alumno_id": 1,
+    "nombre": "Juan",
+    "apellido_paterno": "Pérez",
+    "apellido_materno": "Pérez",
+    "grados": [
+        {
+            "id": "2 de primaria",
+            "periodos": [
+                    {"id": "1-2021", 
+                    "materias":[
+                         {"id": "Matemáticas", "calificacion": 85},
+                         {"id": "Español", "calificacion": 90},
+                         {"id": "Ciencias", "calificacion": 75}
+                        ]
+                    },
+                    {"id": "2-2021",   "materias":[
+                        {"id": "Matemáticas", "calificacion": 85},
+                        {"id": "Español", "calificacion": 90},
+                        {"id": "Ciencias", "calificacion": 75}
+                       ]
+                    }
+            ]
+        },
+        {
+            "id": "3 de primaria",
+            "periodos": [
+                    {"id": "1-2022",  "materias":[
+                        {"id": "Matemáticas", "calificacion": 85},
+                        {"id": "Español", "calificacion": 90},
+                        {"id": "Ciencias", "calificacion": 75}
+                       ]},
+                    {"id": "2-2022",  "materias":[
+                        {"id": "Matemáticas", "calificacion": 85},
+                        {"id": "Español", "calificacion": 90},
+                        {"id": "Ciencias", "calificacion": 75}
+                       ]}
+            ]
+        }
+    ]
+}

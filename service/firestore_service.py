@@ -7,23 +7,30 @@ import os
 load_dotenv()
 
 def init_firebase():
-    # Inicializar Firebase
-    cred = credentials.Certificate(os.environ.get('FIREBASE_JSON_NAME'))
-    firebase_admin.initialize_app(cred)
+    # Verificar si la app ya ha sido inicializada
+    if not firebase_admin._apps:
+        # Inicializar Firebase
+        cred = credentials.Certificate(os.environ.get('FIREBASE_JSON_NAME'))
+        firebase_admin.initialize_app(cred)
     # Obtener una referencia a la base de datos
     return firestore.client()
 
 
-def save_students(estudiantes, nombre_coleccion: str):
+def save_students(estudiantes):
     # Inicializar cliente de Firestore
     db = init_firebase()
-
+    collect_preffix = os.environ.get('FIREBASE_COLLECTION_PREFIX') or  ""
     # Obtener referencia a la colección
-    coleccion_ref = db.collection(nombre_coleccion)
-    # Verificar si la colección 'students' existe
-    # if not coleccion_ref.get():
-    #     # Si la colección no existe, crearla
-    #     coleccion_ref.document().set({})
+    coleccion_ref = db.collection(collect_preffix + f'_students')
+
+    # Verificar si la colección 'students' tiene documentos
+    docs = coleccion_ref.limit(1).get()
+    if not docs:
+        # Si la colección no tiene documentos, agregar uno vacío temporalmente
+        print("Colección vacía, agregando documento temporal...")
+        temp_doc_ref = coleccion_ref.document("temp_doc")
+        temp_doc_ref.set({})
+        temp_doc_ref.delete()
 
     for estudiante in estudiantes:
         # Crear el documento para el estudiante
@@ -33,6 +40,7 @@ def save_students(estudiantes, nombre_coleccion: str):
         estudiante_data = {
             "alumno_id": estudiante["alumno_id"],
             "nombre": estudiante["nombre"],
+            "ci": estudiante["ci"],
             "apellido_paterno": estudiante["apellido_paterno"],
             "apellido_materno": estudiante["apellido_materno"],
             "grados": []
@@ -62,34 +70,7 @@ def save_students(estudiantes, nombre_coleccion: str):
         print(f"Estudiante {estudiante['nombre']} guardado en Firestore.")
 
 
-def save_student(student_id, name, email):
-    """
-    Guarda un estudiante en Firestore
-
-    Args:
-        student_id (str): El ID del estudiante
-        name (str): El nombre del estudiante
-        email (str): El correo electrónico del estudiante
-    """
-    db = init_firebase()
-    # Crear un diccionario con los datos del estudiante
-    student_data = {
-        'name': name,
-        'email': email
-    }
-
-    # Obtener una referencia a la colección 'students'
-    students_ref = db.collection('students')
-
-    # Verificar si la colección 'students' existe
-    if not students_ref.get():
-        # Si la colección no existe, crearla
-        students_ref.document().set({})
-
-    # Guardar el estudiante en la colección 'students'
-    students_ref.document(student_id).set(student_data)
-
-def save_grades(student_id, grades):
+def save_eval(student_id, grades):
     """
     Guarda las notas de un estudiante en Firestore
 

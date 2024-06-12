@@ -1,10 +1,14 @@
 import firebase_admin
 from firebase_admin import firestore,credentials
+from dotenv import load_dotenv
+import os
 
+# Load environment variables from .env file
+load_dotenv()
 
 def init_firebase():
     # Inicializar Firebase
-    cred = credentials.Certificate('toturia-firebase-adminsdk-c8g2u-6343d912fb.json')
+    cred = credentials.Certificate(os.environ.get('FIREBASE_JSON_NAME'))
     firebase_admin.initialize_app(cred)
     # Obtener una referencia a la base de datos
     return firestore.client()

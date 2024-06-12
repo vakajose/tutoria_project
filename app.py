@@ -1,5 +1,6 @@
 from flask import Flask
 from routes.api import api_blueprint
+import os
 
 app = Flask(__name__)
 
@@ -7,4 +8,5 @@ app = Flask(__name__)
 app.register_blueprint(api_blueprint, url_prefix='/api')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    debug_mode = os.getenv('FLASK_DEBUG', 'false').lower() == 'true'
+    app.run(host='0.0.0.0', port=int(os.getenv('FLASK_RUN_PORT', 5000)), debug=debug_mode)

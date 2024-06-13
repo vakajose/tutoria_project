@@ -1,3 +1,5 @@
+import json
+import time
 def convertir_estructura(datos):
     resultado = []
 
@@ -48,3 +50,19 @@ def convertir_estructura(datos):
         resultado.append(estudiante_info)
 
     return resultado
+
+def format_recomends(text):
+    # Separar el JSON del texto plano
+    json_part = text.split("```json\n")[1].split("```")[0].replace("\n", "")
+    plain_text_part = text.split("output_recomendaciones:")[1]
+
+    # Convertir la parte JSON a un diccionario
+    json_data = json.loads(json_part)
+    
+    # Agregar plain_text_part al diccionario JSON
+    json_data["recomendaciones"] = plain_text_part
+    
+    return json_data
+
+def get_time_in_milis():
+     return int(time.time() * 1000)

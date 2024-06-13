@@ -507,14 +507,15 @@ def iniciar_recomendaciones(id_estudiante: int):
     }
 ]
 
-
     #guardar estudiantes en firebase
     firestore_service.save_students(grouped)
 
     #generar cuestionario de evaluacion en google ai studio
     result = ai_service.get_eval(grouped[0].get('grados'))
+    #asignar id
+    result['id'] = str(utils.get_time_in_milis())
     #guardar cuestionario en firebase
-    firestore_service.save_eval(student_id=id_estudiante,evals=result)
+    firestore_service.save_eval(student_id=id_estudiante,eval=result)
 
     return jsonify(result),200
    
@@ -525,26 +526,22 @@ def iniciar_recomendaciones(id_estudiante: int):
 def recibir_evaluacion():
     data = request.get_json()
     alumno_id = data.get('alumno_id')
-    resultados = data.get('resultados')
-
-#     # Almacenar en Firebase Firestore
-#     evaluacion_ref = db.collection('evaluaciones').document()
-#     evaluacion_ref.set({
-#         'id_estudiante': id_estudiante,
-#         'resultados': resultados,
-#         'fecha': firestore.SERVER_TIMESTAMP
-#     })
-
-#     #Generar recomendaciones usando Google Generative AI
-#     recomendaciones = generate_recommendations(resultados)
-#     recomendacion_ref = db.collection('recomendaciones').document()
-#     recomendacion_ref.set({
-#         'id_estudiante': id_estudiante,
-#         'recomendaciones': recomendaciones,
-#         'fecha': firestore.SERVER_TIMESTAMP
-#     })
-
-#     return jsonify({'status': 'success', 'recomendaciones': recomendaciones})
+    respuestas = data.get('respuestas')
+    
+    #obtener datos del estudiante desde firebase
+    estudiante = firestore_service.get_student(alumno_id)
+    if estudiante is not None:
+        grados = estudiante['grados']
+        id = respuestas['id']
+        result = ai_service.get_recomends(grados,respuestas)
+        formated = utils.format_recomends(result)
+        
+        #guardar el formatted en  firebase como parte de la subcoleccion evals del estudiante
+        firestore_service.save_recomends(alumno_id,formated,id)
+        
+        return jsonify({'status': 'success', 'recomendaciones': formated}), 200
+    else:
+        return jsonify({'status': 'error', 'message': 'Estudiante no encontrado'}), 404
 
 
 

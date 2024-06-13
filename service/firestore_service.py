@@ -1,6 +1,7 @@
 import firebase_admin
 from firebase_admin import firestore,credentials
 from dotenv import load_dotenv
+from utils import utils
 import os
 
 # Load environment variables from .env file
@@ -61,7 +62,7 @@ def save_students(estudiantes):
         print(f"Estudiante {estudiante['nombre']} guardado en Firestore.")
 
 
-def save_eval(student_id, evals):
+def save_eval(student_id, eval):
     db = init_firebase()
     collect_preffix = os.environ.get('FIREBASE_COLLECTION_PREFIX') or  ""
     # Obtener una referencia al documento del estudiante
@@ -69,5 +70,33 @@ def save_eval(student_id, evals):
     # Obtener una referencia a la subcolección 'eval' del estudiante
     eval_ref = student_ref.collection('eval')
     # Guardar la evaluacion en la subcolección 'eval' del estudiante
-    eval_ref.add(evals)
-    print(f'Evaluacion guardada para el estudiante {student_id}')
+    eval_ref =  eval_ref.document(eval['id'])
+    # Guardar la evaluacion en Firestore
+    eval_ref.set(eval)
+    print(f'Evaluacion {eval['id']} guardada para el estudiante {student_id}')
+
+def save_recomends(student_id, recomends,id):
+    db = init_firebase()
+    collect_preffix = os.environ.get('FIREBASE_COLLECTION_PREFIX') or  ""
+    # Obtener una referencia al documento del estudiante
+    student_ref = db.collection(collect_preffix + f'_students').document(str(student_id))
+    #Obtener la evaluacion del estudiante
+    eval_ref = student_ref.collection('eval').document(id)
+    eval_ref.update(recomends)
+    print(f'Evaluacion {id} actualizada para el estudiante {student_id}')
+
+def get_student(student_id):
+    db = init_firebase()
+    collect_preffix = os.environ.get('FIREBASE_COLLECTION_PREFIX') or  ""
+    # Obtener una referencia al documento del estudiante
+    student_ref = db.collection(collect_preffix + f'_students').document(str(student_id))
+    
+    # Obtener los datos del estudiante
+    student_doc = student_ref.get()
+    
+    if student_doc.exists:
+        student_data = student_doc.to_dict()
+        return student_data
+    else:
+        print(f"El documento con ID {student_id} no existe.")
+        return None

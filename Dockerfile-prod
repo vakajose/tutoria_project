@@ -8,7 +8,10 @@ COPY . .
 
 # Copiar .env.example a .env
 #RUN cp .env.example .env
-
+RUN apt-get install telnet -y
+RUN apt-get install net-tools -y
+RUN apt-get install vim -y
+RUN apt-get install iputils-ping -y
 # Instalar dependencias de producción
 RUN pip install -r requirements.txt
 RUN pip install -r requirements-prod.txt

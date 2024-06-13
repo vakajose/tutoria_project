@@ -6,12 +6,13 @@ WORKDIR /app
 # Copiar los archivos del proyecto al contenedor
 COPY . .
 
-# Copiar .env.example a .env
-#RUN cp .env.example .env
-RUN apt-get install telnet -y
-RUN apt-get install net-tools -y
-RUN apt-get install vim -y
-RUN apt-get install iputils-ping -y
+# Instalar dependencias del sistema necesarias para telnet, curl y ping
+RUN apt-get update && apt-get install -y \
+    telnet \
+    curl \
+    iputils-ping \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 # Instalar dependencias de producción
 RUN pip install -r requirements.txt
 RUN pip install -r requirements-prod.txt

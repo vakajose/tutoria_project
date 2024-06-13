@@ -7,6 +7,8 @@ services:
       dockerfile: Dockerfile-prod  # Utiliza el Dockerfile de producción
     ports:
       - "5000:5000"
+    networks:
+      - mynetwork
     environment:
       - FLASK_ENV=production
       - ODOO_URL=${ODOO_URL}
@@ -18,3 +20,6 @@ services:
       - FIREBASE_JSON_NAME=${FIREBASE_JSON_NAME}
       - FIREBASE_COLLECTION_PREFIX=${FIREBASE_COLLECTION_PREFIX}
       - GEMINI_API_KEY=${GEMINI_API_KEY}
+networks:
+  mynetwork:
+    driver: bridge

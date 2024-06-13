@@ -73,7 +73,7 @@ def save_eval(student_id, eval):
     eval_ref =  eval_ref.document(eval['id'])
     # Guardar la evaluacion en Firestore
     eval_ref.set(eval)
-    print(f'Evaluacion {eval['id']} guardada para el estudiante {student_id}')
+    print(f'Evaluacion guardada para el estudiante {student_id}')
 
 def save_recomends(student_id, recomends,id):
     db = init_firebase()

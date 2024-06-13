@@ -6,7 +6,7 @@ WORKDIR /app
 # Copiar los archivos del proyecto al contenedor
 COPY . .
 # Copiar .env.example a .env
-RUN cp .env.example .env
+#RUN cp .env.example .env
 # Instalar dependencias de desarrollo
 RUN pip install -r requirements.txt
 

@@ -11,501 +11,501 @@ api_blueprint = Blueprint('api', __name__)
 def iniciar_recomendaciones(id_estudiante: int):
     #consultar a odoo la informacion del estudiante
     students = odoo_service.get_student_from_odoo(id_estudiante)
-    #grouped = utils.convertir_estructura(students)
+    grouped = utils.convertir_estructura(students)
 
-    grouped = [
-    {
-        "alumno_id": 1,
-        "apellido_materno": "Fernandez",
-        "apellido_paterno": "Vaca",
-        "ci": "4362575",
-        "grados": [
-            {
-                "id": "1 secundaria",
-                "periodos": [
-                    {
-                        "id": "1-2022",
-                        "materias": [
-                            {
-                                "id": "matematicas",
-                                "calificacion": 30
-                            },
-                            {
-                                "id": "ingles",
-                                "calificacion": 55
-                            },
-                            {
-                                "id": "lenguaje",
-                                "calificacion": 70
-                            },
-                            {
-                                "id": "ciencias",
-                                "calificacion": 85
-                            },
-                            {
-                                "id": "educacion_fisica",
-                                "calificacion": 90
-                            }
-                        ]
-                    },
-                    {
-                        "id": "2-2022",
-                        "materias": [
-                            {
-                                "id": "matematicas",
-                                "calificacion": 40
-                            },
-                            {
-                                "id": "ingles",
-                                "calificacion": 60
-                            },
-                            {
-                                "id": "lenguaje",
-                                "calificacion": 75
-                            },
-                            {
-                                "id": "ciencias",
-                                "calificacion": 88
-                            },
-                            {
-                                "id": "educacion_fisica",
-                                "calificacion": 92
-                            }
-                        ]
-                    },
-                    {
-                        "id": "3-2022",
-                        "materias": [
-                            {
-                                "id": "matematicas",
-                                "calificacion": 50
-                            },
-                            {
-                                "id": "ingles",
-                                "calificacion": 65
-                            },
-                            {
-                                "id": "lenguaje",
-                                "calificacion": 80
-                            },
-                            {
-                                "id": "ciencias",
-                                "calificacion": 90
-                            },
-                            {
-                                "id": "educacion_fisica",
-                                "calificacion": 95
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "id": "2 secundaria",
-                "periodos": [
-                    {
-                        "id": "1-2023",
-                        "materias": [
-                            {
-                                "id": "matematicas",
-                                "calificacion": 60
-                            },
-                            {
-                                "id": "ingles",
-                                "calificacion": 70
-                            },
-                            {
-                                "id": "lenguaje",
-                                "calificacion": 85
-                            },
-                            {
-                                "id": "ciencias",
-                                "calificacion": 75
-                            },
-                            {
-                                "id": "educacion_fisica",
-                                "calificacion": 80
-                            }
-                        ]
-                    },
-                    {
-                        "id": "2-2023",
-                        "materias": [
-                            {
-                                "id": "matematicas",
-                                "calificacion": 65
-                            },
-                            {
-                                "id": "ingles",
-                                "calificacion": 75
-                            },
-                            {
-                                "id": "lenguaje",
-                                "calificacion": 88
-                            },
-                            {
-                                "id": "ciencias",
-                                "calificacion": 78
-                            },
-                            {
-                                "id": "educacion_fisica",
-                                "calificacion": 85
-                            }
-                        ]
-                    },
-                    {
-                        "id": "3-2023",
-                        "materias": [
-                            {
-                                "id": "matematicas",
-                                "calificacion": 70
-                            },
-                            {
-                                "id": "ingles",
-                                "calificacion": 80
-                            },
-                            {
-                                "id": "lenguaje",
-                                "calificacion": 90
-                            },
-                            {
-                                "id": "ciencias",
-                                "calificacion": 82
-                            },
-                            {
-                                "id": "educacion_fisica",
-                                "calificacion": 88
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "id": "3 secundaria",
-                "periodos": [
-                    {
-                        "id": "1-2024",
-                        "materias": [
-                            {
-                                "id": "matematicas",
-                                "calificacion": 75
-                            },
-                            {
-                                "id": "ingles",
-                                "calificacion": 85
-                            },
-                            {
-                                "id": "lenguaje",
-                                "calificacion": 92
-                            },
-                            {
-                                "id": "ciencias",
-                                "calificacion": 88
-                            },
-                            {
-                                "id": "educacion_fisica",
-                                "calificacion": 90
-                            }
-                        ]
-                    },
-                    {
-                        "id": "2-2024",
-                        "materias": [
-                            {
-                                "id": "matematicas",
-                                "calificacion": 80
-                            },
-                            {
-                                "id": "ingles",
-                                "calificacion": 88
-                            },
-                            {
-                                "id": "lenguaje",
-                                "calificacion": 94
-                            },
-                            {
-                                "id": "ciencias",
-                                "calificacion": 90
-                            },
-                            {
-                                "id": "educacion_fisica",
-                                "calificacion": 92
-                            }
-                        ]
-                    },
-                    {
-                        "id": "3-2024",
-                        "materias": [
-                            {
-                                "id": "matematicas",
-                                "calificacion": 85
-                            },
-                            {
-                                "id": "ingles",
-                                "calificacion": 90
-                            },
-                            {
-                                "id": "lenguaje",
-                                "calificacion": 95
-                            },
-                            {
-                                "id": "ciencias",
-                                "calificacion": 92
-                            },
-                            {
-                                "id": "educacion_fisica",
-                                "calificacion": 94
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "id": "4 secundaria",
-                "periodos": [
-                    {
-                        "id": "1-2025",
-                        "materias": [
-                            {
-                                "id": "matematicas",
-                                "calificacion": 90
-                            },
-                            {
-                                "id": "ingles",
-                                "calificacion": 92
-                            },
-                            {
-                                "id": "lenguaje",
-                                "calificacion": 94
-                            },
-                            {
-                                "id": "ciencias",
-                                "calificacion": 91
-                            },
-                            {
-                                "id": "educacion_fisica",
-                                "calificacion": 93
-                            }
-                        ]
-                    },
-                    {
-                        "id": "2-2025",
-                        "materias": [
-                            {
-                                "id": "matematicas",
-                                "calificacion": 91
-                            },
-                            {
-                                "id": "ingles",
-                                "calificacion": 93
-                            },
-                            {
-                                "id": "lenguaje",
-                                "calificacion": 95
-                            },
-                            {
-                                "id": "ciencias",
-                                "calificacion": 92
-                            },
-                            {
-                                "id": "educacion_fisica",
-                                "calificacion": 94
-                            }
-                        ]
-                    },
-                    {
-                        "id": "3-2025",
-                        "materias": [
-                            {
-                                "id": "matematicas",
-                                "calificacion": 92
-                            },
-                            {
-                                "id": "ingles",
-                                "calificacion": 94
-                            },
-                            {
-                                "id": "lenguaje",
-                                "calificacion": 96
-                            },
-                            {
-                                "id": "ciencias",
-                                "calificacion": 93
-                            },
-                            {
-                                "id": "educacion_fisica",
-                                "calificacion": 95
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "id": "5 secundaria",
-                "periodos": [
-                    {
-                        "id": "1-2026",
-                        "materias": [
-                            {
-                                "id": "matematicas",
-                                "calificacion": 93
-                            },
-                            {
-                                "id": "ingles",
-                                "calificacion": 95
-                            },
-                            {
-                                "id": "lenguaje",
-                                "calificacion": 97
-                            },
-                            {
-                                "id": "ciencias",
-                                "calificacion": 94
-                            },
-                            {
-                                "id": "educacion_fisica",
-                                "calificacion": 96
-                            }
-                        ]
-                    },
-                    {
-                        "id": "2-2026",
-                        "materias": [
-                            {
-                                "id": "matematicas",
-                                "calificacion": 94
-                            },
-                            {
-                                "id": "ingles",
-                                "calificacion": 96
-                            },
-                            {
-                                "id": "lenguaje",
-                                "calificacion": 98
-                            },
-                            {
-                                "id": "ciencias",
-                                "calificacion": 95
-                            },
-                            {
-                                "id": "educacion_fisica",
-                                "calificacion": 97
-                            }
-                        ]
-                    },
-                    {
-                        "id": "3-2026",
-                        "materias": [
-                            {
-                                "id": "matematicas",
-                                "calificacion": 95
-                            },
-                            {
-                                "id": "ingles",
-                                "calificacion": 97
-                            },
-                            {
-                                "id": "lenguaje",
-                                "calificacion": 99
-                            },
-                            {
-                                "id": "ciencias",
-                                "calificacion": 96
+#     grouped = [
+#     {
+#         "alumno_id": 1,
+#         "apellido_materno": "Fernandez",
+#         "apellido_paterno": "Vaca",
+#         "ci": "4362575",
+#         "grados": [
+#             {
+#                 "id": "1 secundaria",
+#                 "periodos": [
+#                     {
+#                         "id": "1-2022",
+#                         "materias": [
+#                             {
+#                                 "id": "matematicas",
+#                                 "calificacion": 30
+#                             },
+#                             {
+#                                 "id": "ingles",
+#                                 "calificacion": 55
+#                             },
+#                             {
+#                                 "id": "lenguaje",
+#                                 "calificacion": 70
+#                             },
+#                             {
+#                                 "id": "ciencias",
+#                                 "calificacion": 85
+#                             },
+#                             {
+#                                 "id": "educacion_fisica",
+#                                 "calificacion": 90
+#                             }
+#                         ]
+#                     },
+#                     {
+#                         "id": "2-2022",
+#                         "materias": [
+#                             {
+#                                 "id": "matematicas",
+#                                 "calificacion": 40
+#                             },
+#                             {
+#                                 "id": "ingles",
+#                                 "calificacion": 60
+#                             },
+#                             {
+#                                 "id": "lenguaje",
+#                                 "calificacion": 75
+#                             },
+#                             {
+#                                 "id": "ciencias",
+#                                 "calificacion": 88
+#                             },
+#                             {
+#                                 "id": "educacion_fisica",
+#                                 "calificacion": 92
+#                             }
+#                         ]
+#                     },
+#                     {
+#                         "id": "3-2022",
+#                         "materias": [
+#                             {
+#                                 "id": "matematicas",
+#                                 "calificacion": 50
+#                             },
+#                             {
+#                                 "id": "ingles",
+#                                 "calificacion": 65
+#                             },
+#                             {
+#                                 "id": "lenguaje",
+#                                 "calificacion": 80
+#                             },
+#                             {
+#                                 "id": "ciencias",
+#                                 "calificacion": 90
+#                             },
+#                             {
+#                                 "id": "educacion_fisica",
+#                                 "calificacion": 95
+#                             }
+#                         ]
+#                     }
+#                 ]
+#             },
+#             {
+#                 "id": "2 secundaria",
+#                 "periodos": [
+#                     {
+#                         "id": "1-2023",
+#                         "materias": [
+#                             {
+#                                 "id": "matematicas",
+#                                 "calificacion": 60
+#                             },
+#                             {
+#                                 "id": "ingles",
+#                                 "calificacion": 70
+#                             },
+#                             {
+#                                 "id": "lenguaje",
+#                                 "calificacion": 85
+#                             },
+#                             {
+#                                 "id": "ciencias",
+#                                 "calificacion": 75
+#                             },
+#                             {
+#                                 "id": "educacion_fisica",
+#                                 "calificacion": 80
+#                             }
+#                         ]
+#                     },
+#                     {
+#                         "id": "2-2023",
+#                         "materias": [
+#                             {
+#                                 "id": "matematicas",
+#                                 "calificacion": 65
+#                             },
+#                             {
+#                                 "id": "ingles",
+#                                 "calificacion": 75
+#                             },
+#                             {
+#                                 "id": "lenguaje",
+#                                 "calificacion": 88
+#                             },
+#                             {
+#                                 "id": "ciencias",
+#                                 "calificacion": 78
+#                             },
+#                             {
+#                                 "id": "educacion_fisica",
+#                                 "calificacion": 85
+#                             }
+#                         ]
+#                     },
+#                     {
+#                         "id": "3-2023",
+#                         "materias": [
+#                             {
+#                                 "id": "matematicas",
+#                                 "calificacion": 70
+#                             },
+#                             {
+#                                 "id": "ingles",
+#                                 "calificacion": 80
+#                             },
+#                             {
+#                                 "id": "lenguaje",
+#                                 "calificacion": 90
+#                             },
+#                             {
+#                                 "id": "ciencias",
+#                                 "calificacion": 82
+#                             },
+#                             {
+#                                 "id": "educacion_fisica",
+#                                 "calificacion": 88
+#                             }
+#                         ]
+#                     }
+#                 ]
+#             },
+#             {
+#                 "id": "3 secundaria",
+#                 "periodos": [
+#                     {
+#                         "id": "1-2024",
+#                         "materias": [
+#                             {
+#                                 "id": "matematicas",
+#                                 "calificacion": 75
+#                             },
+#                             {
+#                                 "id": "ingles",
+#                                 "calificacion": 85
+#                             },
+#                             {
+#                                 "id": "lenguaje",
+#                                 "calificacion": 92
+#                             },
+#                             {
+#                                 "id": "ciencias",
+#                                 "calificacion": 88
+#                             },
+#                             {
+#                                 "id": "educacion_fisica",
+#                                 "calificacion": 90
+#                             }
+#                         ]
+#                     },
+#                     {
+#                         "id": "2-2024",
+#                         "materias": [
+#                             {
+#                                 "id": "matematicas",
+#                                 "calificacion": 80
+#                             },
+#                             {
+#                                 "id": "ingles",
+#                                 "calificacion": 88
+#                             },
+#                             {
+#                                 "id": "lenguaje",
+#                                 "calificacion": 94
+#                             },
+#                             {
+#                                 "id": "ciencias",
+#                                 "calificacion": 90
+#                             },
+#                             {
+#                                 "id": "educacion_fisica",
+#                                 "calificacion": 92
+#                             }
+#                         ]
+#                     },
+#                     {
+#                         "id": "3-2024",
+#                         "materias": [
+#                             {
+#                                 "id": "matematicas",
+#                                 "calificacion": 85
+#                             },
+#                             {
+#                                 "id": "ingles",
+#                                 "calificacion": 90
+#                             },
+#                             {
+#                                 "id": "lenguaje",
+#                                 "calificacion": 95
+#                             },
+#                             {
+#                                 "id": "ciencias",
+#                                 "calificacion": 92
+#                             },
+#                             {
+#                                 "id": "educacion_fisica",
+#                                 "calificacion": 94
+#                             }
+#                         ]
+#                     }
+#                 ]
+#             },
+#             {
+#                 "id": "4 secundaria",
+#                 "periodos": [
+#                     {
+#                         "id": "1-2025",
+#                         "materias": [
+#                             {
+#                                 "id": "matematicas",
+#                                 "calificacion": 90
+#                             },
+#                             {
+#                                 "id": "ingles",
+#                                 "calificacion": 92
+#                             },
+#                             {
+#                                 "id": "lenguaje",
+#                                 "calificacion": 94
+#                             },
+#                             {
+#                                 "id": "ciencias",
+#                                 "calificacion": 91
+#                             },
+#                             {
+#                                 "id": "educacion_fisica",
+#                                 "calificacion": 93
+#                             }
+#                         ]
+#                     },
+#                     {
+#                         "id": "2-2025",
+#                         "materias": [
+#                             {
+#                                 "id": "matematicas",
+#                                 "calificacion": 91
+#                             },
+#                             {
+#                                 "id": "ingles",
+#                                 "calificacion": 93
+#                             },
+#                             {
+#                                 "id": "lenguaje",
+#                                 "calificacion": 95
+#                             },
+#                             {
+#                                 "id": "ciencias",
+#                                 "calificacion": 92
+#                             },
+#                             {
+#                                 "id": "educacion_fisica",
+#                                 "calificacion": 94
+#                             }
+#                         ]
+#                     },
+#                     {
+#                         "id": "3-2025",
+#                         "materias": [
+#                             {
+#                                 "id": "matematicas",
+#                                 "calificacion": 92
+#                             },
+#                             {
+#                                 "id": "ingles",
+#                                 "calificacion": 94
+#                             },
+#                             {
+#                                 "id": "lenguaje",
+#                                 "calificacion": 96
+#                             },
+#                             {
+#                                 "id": "ciencias",
+#                                 "calificacion": 93
+#                             },
+#                             {
+#                                 "id": "educacion_fisica",
+#                                 "calificacion": 95
+#                             }
+#                         ]
+#                     }
+#                 ]
+#             },
+#             {
+#                 "id": "5 secundaria",
+#                 "periodos": [
+#                     {
+#                         "id": "1-2026",
+#                         "materias": [
+#                             {
+#                                 "id": "matematicas",
+#                                 "calificacion": 93
+#                             },
+#                             {
+#                                 "id": "ingles",
+#                                 "calificacion": 95
+#                             },
+#                             {
+#                                 "id": "lenguaje",
+#                                 "calificacion": 97
+#                             },
+#                             {
+#                                 "id": "ciencias",
+#                                 "calificacion": 94
+#                             },
+#                             {
+#                                 "id": "educacion_fisica",
+#                                 "calificacion": 96
+#                             }
+#                         ]
+#                     },
+#                     {
+#                         "id": "2-2026",
+#                         "materias": [
+#                             {
+#                                 "id": "matematicas",
+#                                 "calificacion": 94
+#                             },
+#                             {
+#                                 "id": "ingles",
+#                                 "calificacion": 96
+#                             },
+#                             {
+#                                 "id": "lenguaje",
+#                                 "calificacion": 98
+#                             },
+#                             {
+#                                 "id": "ciencias",
+#                                 "calificacion": 95
+#                             },
+#                             {
+#                                 "id": "educacion_fisica",
+#                                 "calificacion": 97
+#                             }
+#                         ]
+#                     },
+#                     {
+#                         "id": "3-2026",
+#                         "materias": [
+#                             {
+#                                 "id": "matematicas",
+#                                 "calificacion": 95
+#                             },
+#                             {
+#                                 "id": "ingles",
+#                                 "calificacion": 97
+#                             },
+#                             {
+#                                 "id": "lenguaje",
+#                                 "calificacion": 99
+#                             },
+#                             {
+#                                 "id": "ciencias",
+#                                 "calificacion": 96
                            
 
- },
-                            {
-                                "id": "educacion_fisica",
-                                "calificacion": 98
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "id": "6 secundaria",
-                "periodos": [
-                    {
-                        "id": "1-2027",
-                        "materias": [
-                            {
-                                "id": "matematicas",
-                                "calificacion": 96
-                            },
-                            {
-                                "id": "ingles",
-                                "calificacion": 98
-                            },
-                            {
-                                "id": "lenguaje",
-                                "calificacion": 99
-                            },
-                            {
-                                "id": "ciencias",
-                                "calificacion": 97
-                            },
-                            {
-                                "id": "educacion_fisica",
-                                "calificacion": 99
-                            }
-                        ]
-                    },
-                    {
-                        "id": "2-2027",
-                        "materias": [
-                            {
-                                "id": "matematicas",
-                                "calificacion": 97
-                            },
-                            {
-                                "id": "ingles",
-                                "calificacion": 99
-                            },
-                            {
-                                "id": "lenguaje",
-                                "calificacion": 100
-                            },
-                            {
-                                "id": "ciencias",
-                                "calificacion": 98
-                            },
-                            {
-                                "id": "educacion_fisica",
-                                "calificacion": 100
-                            }
-                        ]
-                    },
-                    {
-                        "id": "3-2027",
-                        "materias": [
-                            {
-                                "id": "matematicas",
-                                "calificacion": 98
-                            },
-                            {
-                                "id": "ingles",
-                                "calificacion": 100
-                            },
-                            {
-                                "id": "lenguaje",
-                                "calificacion": 100
-                            },
-                            {
-                                "id": "ciencias",
-                                "calificacion": 99
-                            },
-                            {
-                                "id": "educacion_fisica",
-                                "calificacion": 100
-                            }
-                        ]
-                    }
-                ]
-            }
-        ],
-        "nombre": "Jose Luis"
-    }
-]
+#  },
+#                             {
+#                                 "id": "educacion_fisica",
+#                                 "calificacion": 98
+#                             }
+#                         ]
+#                     }
+#                 ]
+#             },
+#             {
+#                 "id": "6 secundaria",
+#                 "periodos": [
+#                     {
+#                         "id": "1-2027",
+#                         "materias": [
+#                             {
+#                                 "id": "matematicas",
+#                                 "calificacion": 96
+#                             },
+#                             {
+#                                 "id": "ingles",
+#                                 "calificacion": 98
+#                             },
+#                             {
+#                                 "id": "lenguaje",
+#                                 "calificacion": 99
+#                             },
+#                             {
+#                                 "id": "ciencias",
+#                                 "calificacion": 97
+#                             },
+#                             {
+#                                 "id": "educacion_fisica",
+#                                 "calificacion": 99
+#                             }
+#                         ]
+#                     },
+#                     {
+#                         "id": "2-2027",
+#                         "materias": [
+#                             {
+#                                 "id": "matematicas",
+#                                 "calificacion": 97
+#                             },
+#                             {
+#                                 "id": "ingles",
+#                                 "calificacion": 99
+#                             },
+#                             {
+#                                 "id": "lenguaje",
+#                                 "calificacion": 100
+#                             },
+#                             {
+#                                 "id": "ciencias",
+#                                 "calificacion": 98
+#                             },
+#                             {
+#                                 "id": "educacion_fisica",
+#                                 "calificacion": 100
+#                             }
+#                         ]
+#                     },
+#                     {
+#                         "id": "3-2027",
+#                         "materias": [
+#                             {
+#                                 "id": "matematicas",
+#                                 "calificacion": 98
+#                             },
+#                             {
+#                                 "id": "ingles",
+#                                 "calificacion": 100
+#                             },
+#                             {
+#                                 "id": "lenguaje",
+#                                 "calificacion": 100
+#                             },
+#                             {
+#                                 "id": "ciencias",
+#                                 "calificacion": 99
+#                             },
+#                             {
+#                                 "id": "educacion_fisica",
+#                                 "calificacion": 100
+#                             }
+#                         ]
+#                     }
+#                 ]
+#             }
+#         ],
+#         "nombre": "Jose Luis"
+#     }
+# ]
 
     #guardar estudiantes en firebase
     firestore_service.save_students(grouped)

@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 #Datos de conexion
-url = os.environ.get('ODOO_URL') or 'http://localhost:8069'
+url = os.environ.get('ODOO_URL') or 'http://localhost:8085'
 db = os.environ.get('ODOO_DB') or 'odoo_db'
 username = os.environ.get('ODOO_USERNAME') or 'odoo_db'
 password = os.environ.get('ODOO_API_KEY') or 'odoo_db'

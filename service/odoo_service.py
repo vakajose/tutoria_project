@@ -43,8 +43,6 @@ def get_student_from_odoo(alumno_id:int):
 def login(ci:str, ap:str):
     #Conexion al servidor
     common = xmlrpc.client.ServerProxy('{}/xmlrpc/2/common'.format(url))
-    print(common.version())
-
     uid = common.authenticate(db, username, password, {})
     print(uid)
 

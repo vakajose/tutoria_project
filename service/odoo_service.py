@@ -31,11 +31,8 @@ def list_all_students_from_odoo():
 def get_student_from_odoo(alumno_id:int):
     #Conexion al servidor
     common = xmlrpc.client.ServerProxy('{}/xmlrpc/2/common'.format(url))
-    print(common.version())
-
     uid = common.authenticate(db, username, password, {})
     print(uid)
-
     models = xmlrpc.client.ServerProxy('{}/xmlrpc/2/object'.format(url))
     model_id = models.execute_kw(db, uid, password, 'ir.model', 'search', [[['model','=','colegios.nota']]])
     print(model_id)

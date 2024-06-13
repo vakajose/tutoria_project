@@ -23,15 +23,6 @@ def save_students(estudiantes):
     # Obtener referencia a la colección
     coleccion_ref = db.collection(collect_preffix + f'_students')
 
-    # Verificar si la colección 'students' tiene documentos
-    docs = coleccion_ref.limit(1).get()
-    if not docs:
-        # Si la colección no tiene documentos, agregar uno vacío temporalmente
-        print("Colección vacía, agregando documento temporal...")
-        temp_doc_ref = coleccion_ref.document("temp_doc")
-        temp_doc_ref.set({})
-        temp_doc_ref.delete()
-
     for estudiante in estudiantes:
         # Crear el documento para el estudiante
         estudiante_ref = coleccion_ref.document(str(estudiante["alumno_id"]))
@@ -70,26 +61,13 @@ def save_students(estudiantes):
         print(f"Estudiante {estudiante['nombre']} guardado en Firestore.")
 
 
-def save_eval(student_id, grades):
-    """
-    Guarda las notas de un estudiante en Firestore
-
-    Args:
-        student_id (str): El ID del estudiante
-        grades (list): Una lista de diccionarios con las notas del estudiante
-    """
+def save_eval(student_id, evals):
     db = init_firebase()
+    collect_preffix = os.environ.get('FIREBASE_COLLECTION_PREFIX') or  ""
     # Obtener una referencia al documento del estudiante
-    student_ref = db.collection('students').document(student_id)
-
-    # Obtener una referencia a la subcolección 'grades' del estudiante
-    grades_ref = student_ref.collection('grades')
-
-    # Verificar si la subcolección 'grades' existe
-    if not grades_ref.get():
-        # Si la subcolección no existe, crearla
-        grades_ref.document().set({})
-
-    # Guardar las notas en la subcolección 'grades' del estudiante
-    for grade in grades:
-        grades_ref.add(grade)
+    student_ref = db.collection(collect_preffix + f'_students').document(str(student_id))
+    # Obtener una referencia a la subcolección 'eval' del estudiante
+    eval_ref = student_ref.collection('eval')
+    # Guardar la evaluacion en la subcolección 'eval' del estudiante
+    eval_ref.add(evals)
+    print(f'Evaluacion guardada para el estudiante {student_id}')

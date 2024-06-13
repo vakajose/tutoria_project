@@ -10,10 +10,11 @@ url = os.environ.get('ODOO_URL') or 'http://localhost:8069'
 db = os.environ.get('ODOO_DB') or 'odoo_db'
 username = os.environ.get('ODOO_USERNAME') or 'odoo_db'
 password = os.environ.get('ODOO_API_KEY') or 'odoo_db'
+timeout = os.environ.get('ODOO_RPC_TIMEOUT') or 30
 
 def list_all_students_from_odoo():
     #Conexion al servidor
-    common = xmlrpc.client.ServerProxy('{}/xmlrpc/2/common'.format(url))
+    common = xmlrpc.client.ServerProxy('{}/xmlrpc/2/common'.format(url),timeout=timeout)
     print(common.version())
 
     uid = common.authenticate(db, username, password, {})

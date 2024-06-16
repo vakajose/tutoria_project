@@ -53,9 +53,12 @@ def convertir_estructura(datos):
 
 def format_recomends(text):
     # Separar el JSON del texto plano
-    json_part = text.split("```json\n")[1].split("```")[0].replace("\n", "")
-    plain_text_part = text.split("output_recomendaciones:")[1]
-
+    json_part = text.split("```json\n")[1].split("```\\json")[0].replace("\n", "")
+    print(json.loads(json_part))
+    print(f'___________________________FORMAT RECOMENDS_____________________________')
+    print(text)
+    #plain_text_part = text.split("output_recomendaciones:")[1]
+    plain_text_part = text.split("```markdown\n")[1].split("```\\markdown")[0]
     # Convertir la parte JSON a un diccionario
     json_data = json.loads(json_part)
     

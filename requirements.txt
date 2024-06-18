@@ -2,3 +2,4 @@ Flask
 firebase-admin
 google-generativeai
 python-dotenv
+flask-cors

@@ -13,7 +13,8 @@ import json
 
 
 def init_gemini():
-    genai.configure(api_key=os.environ["GEMINI_API_KEY"])
+    api_key = os.environ["GEMINI_API_KEY"]
+    genai.configure(api_key=api_key)
 
     # Create the model
     # See https://ai.google.dev/api/python/google/generativeai/GenerativeModel
@@ -26,7 +27,7 @@ def init_gemini():
     }
 
     return genai.GenerativeModel(
-    model_name="gemini-1.5-pro",
+    model_name="gemini-1.5-flash",
     generation_config=generation_config,
     # safety_settings = Adjust safety settings
     # See https://ai.google.dev/gemini-api/docs/safety-settings
@@ -46,7 +47,7 @@ def init_gemini2():
     }
 
     return genai.GenerativeModel(
-    model_name="gemini-1.5-pro",
+    model_name="gemini-1.5-flash",
     generation_config=generation_config,
     # safety_settings = Adjust safety settings
     # See https://ai.google.dev/gemini-api/docs/safety-settings

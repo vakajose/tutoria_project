@@ -557,7 +557,8 @@ def recibir_evaluacion_json():
         grados = estudiante['grados']
         id = respuestas['id']
         result = ai_service.get_recomends_json(grados,respuestas)
-        formated = json.loads(result)
+        _json = json.loads(result)
+        formated = _json.encode('utf-8').decode('unicode_escape')
         
         #guardar el formatted en  firebase como parte de la subcoleccion evals del estudiante
         firestore_service.save_recomends(alumno_id,formated,id)

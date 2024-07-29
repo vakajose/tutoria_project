@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from service import odoo_service,firestore_service,ai_service
 from utils import utils
+from utils import models
 import json
 
 api_blueprint = Blueprint('api', __name__)
@@ -548,6 +549,8 @@ def recibir_evaluacion():
 @api_blueprint.route('/evaluaciones', methods=['POST'])
 def recibir_evaluacion_json():
     data = request.get_json()
+    print(f'___________________________REQUEST_____________________________')
+    print(json.dumps(data, indent=4, ensure_ascii=False))
     alumno_id = data.get('alumno_id')
     respuestas = data.get('respuestas')
     
@@ -557,14 +560,14 @@ def recibir_evaluacion_json():
         grados = estudiante['grados']
         id = respuestas['id']
         result = ai_service.get_recomends_json(grados,respuestas)
-        _json = json.loads(result)
-        formated = _json.encode('utf-8').decode('unicode_escape')
+        
+        diagnostico : models.Diagnostico = json.loads(result)
         
         #guardar el formatted en  firebase como parte de la subcoleccion evals del estudiante
-        firestore_service.save_recomends(alumno_id,formated,id)
+        firestore_service.save_recomends(alumno_id,diagnostico,id)
         print(f'___________________________FORMATED_____________________________')
-        print(json.dumps(formated, indent=4))
-        return jsonify({'status': 'success', 'recomendaciones': formated}), 200
+        print(json.dumps(diagnostico, indent=4, ensure_ascii=False))
+        return jsonify({'status': 'success', 'recomendaciones': diagnostico}), 200
     else:
         return jsonify({'status': 'error', 'message': 'Estudiante no encontrado'}), 404
 

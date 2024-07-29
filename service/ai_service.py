@@ -35,8 +35,8 @@ def init_genimi_json():
 
 def get_recomends_json(grados, eval):
   model = init_genimi_json()
-  grados_string = json.dumps(grados)
-  eval_string = json.dumps(eval)
+  grados_string = json.dumps(grados,ensure_ascii=False)
+  eval_string = json.dumps(eval,ensure_ascii=False)
   response = model.generate_content(["Notas: " + grados_string, "Diagnostico: " + eval_string])
   return response.text
 

@@ -1,4 +1,4 @@
-from typing import List, Dict, TypedDict
+from typing import List, Dict
 import typing_extensions as ty
 
 class Materia(ty.TypedDict):
@@ -59,17 +59,17 @@ def convertir_estructura_tipada(datos) -> List[Estudiante]:
 
 ### PROMPT TYPES ###
 
-class Evaluacion(TypedDict):
+class Evaluacion(ty.TypedDict):
     pregunta: str
     respuesta: str
     calificacion: str
     
-class Cuestionario(TypedDict):
+class Cuestionario(ty.TypedDict):
     evaluacion: List[Evaluacion]
     materia: str
     promedio: float
 
-class Diagnostico(TypedDict):
+class Diagnostico(ty.TypedDict):
     id: str
     explicacion: str
     cuestionario: List[Cuestionario]

@@ -38,7 +38,6 @@ def get_recomends_json(grados, eval):
   grados_string = json.dumps(grados)
   eval_string = json.dumps(eval)
   response = model.generate_content(["Notas: " + grados_string, "Diagnostico: " + eval_string])
-  print(response.text)
   return response.text
 
 def init_gemini():

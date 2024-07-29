@@ -561,7 +561,8 @@ def recibir_evaluacion_json():
         
         #guardar el formatted en  firebase como parte de la subcoleccion evals del estudiante
         firestore_service.save_recomends(alumno_id,formated,id)
-        
+        print(f'___________________________FORMATED_____________________________')
+        print(json.dumps(formated, indent=4))
         return jsonify({'status': 'success', 'recomendaciones': formated}), 200
     else:
         return jsonify({'status': 'error', 'message': 'Estudiante no encontrado'}), 404

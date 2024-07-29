@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from service import odoo_service,firestore_service,ai_service
 from utils import utils
+import json
 
 api_blueprint = Blueprint('api', __name__)
 
@@ -522,7 +523,7 @@ def iniciar_recomendaciones(id_estudiante: int):
 
 
 
-@api_blueprint.route('/evaluaciones', methods=['POST'])
+@api_blueprint.route('/evaluaciones_old', methods=['POST'])
 def recibir_evaluacion():
     data = request.get_json()
     alumno_id = data.get('alumno_id')
@@ -535,6 +536,28 @@ def recibir_evaluacion():
         id = respuestas['id']
         result = ai_service.get_recomends(grados,respuestas)
         formated = utils.format_recomends(result)
+        
+        #guardar el formatted en  firebase como parte de la subcoleccion evals del estudiante
+        firestore_service.save_recomends(alumno_id,formated,id)
+        
+        return jsonify({'status': 'success', 'recomendaciones': formated}), 200
+    else:
+        return jsonify({'status': 'error', 'message': 'Estudiante no encontrado'}), 404
+    
+    
+@api_blueprint.route('/evaluaciones', methods=['POST'])
+def recibir_evaluacion_json():
+    data = request.get_json()
+    alumno_id = data.get('alumno_id')
+    respuestas = data.get('respuestas')
+    
+    #obtener datos del estudiante desde firebase
+    estudiante = firestore_service.get_student(alumno_id)
+    if estudiante is not None:
+        grados = estudiante['grados']
+        id = respuestas['id']
+        result = ai_service.get_recomends_json(grados,respuestas)
+        formated = json.loads(result)
         
         #guardar el formatted en  firebase como parte de la subcoleccion evals del estudiante
         firestore_service.save_recomends(alumno_id,formated,id)

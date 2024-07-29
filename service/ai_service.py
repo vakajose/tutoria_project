@@ -10,7 +10,36 @@ https://ai.google.dev/gemini-api/docs/get-started/python
 import os
 import google.generativeai as genai
 import json
+from utils import prompts, models
 
+def init_genimi_json():
+  genai.configure(api_key=os.environ["GEMINI_API_KEY"])
+  
+  generation_config = genai.GenerationConfig(
+    temperature= 0.5,
+    top_p= 0.95,
+    top_k= 64,
+    max_output_tokens= 16000,
+    response_mime_type= prompts.MIME_TYPE_JSON,
+    response_schema = models.Diagnostico
+  )
+
+  model =  genai.GenerativeModel(
+    model_name=prompts.MODEL_GEMINI_PRO,
+    generation_config=generation_config,
+    system_instruction=prompts.SYSTEM_INSTRUCTIONS,
+  )
+    
+  return model
+
+
+def get_recomends_json(grados, eval):
+  model = init_genimi_json()
+  grados_string = json.dumps(grados)
+  eval_string = json.dumps(eval)
+  response = model.generate_content(["Notas: " + grados_string, "Diagnostico: " + eval_string])
+  print(response.text)
+  return response.text
 
 def init_gemini():
     api_key = os.environ["GEMINI_API_KEY"]
@@ -72,7 +101,6 @@ def get_eval(grados):
 
     print(response.text)
     return json.loads(response.text)
-  
   
 def get_recomends(grados,eval):
   model = init_gemini2()

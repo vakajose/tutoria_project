@@ -1,21 +1,28 @@
-from typing import List, Dict
+from typing import List, Dict, TypedDict
+import typing_extensions as ty
 
-class Materia:
-    def __init__(self, id: str, calificacion: int):
+class Materia(ty.TypedDict):
+    id: str
+    calificacion: float
+    def __init__(self, id: str, calificacion: float):
         self.id = id
         self.calificacion = calificacion
 
-class Periodo:
+class Periodo(ty.TypedDict):
+    id: str
+    materias: List[Materia]
     def __init__(self, id: str, materias: List[Materia]):
         self.id = id
         self.materias = materias
 
-class Grado:
+class Grado(ty.TypedDict):
+    id: str
+    periodos: List[Periodo]
     def __init__(self, id: str, periodos: List[Periodo]):
         self.id = id
         self.periodos = periodos
 
-class Estudiante:
+class Estudiante(ty.TypedDict):
     def __init__(self, alumno_id: int, nombre: str, apellido_paterno: str, apellido_materno: str, grados: List[Grado]):
         self.alumno_id = alumno_id
         self.nombre = nombre
@@ -48,3 +55,23 @@ def convertir_estructura_tipada(datos) -> List[Estudiante]:
         periodo_obj.materias.append(materia_obj)
 
     return list(estudiantes_dict.values())
+
+
+### PROMPT TYPES ###
+
+class Evaluacion(TypedDict):
+    pregunta: str
+    respuesta: str
+    calificacion: str
+    
+class Cuestionario(TypedDict):
+    evaluacion: List[Evaluacion]
+    materia: str
+    promedio: float
+
+class Diagnostico(TypedDict):
+    id: str
+    explicacion: str
+    cuestionario: List[Cuestionario]
+    recomendacion: str
+    
